@@ -1,4 +1,4 @@
-# SwipeGestures
+# SwipeGestures for Cocos2d-x
 
 
 
