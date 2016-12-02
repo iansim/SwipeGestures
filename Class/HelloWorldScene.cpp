@@ -26,7 +26,8 @@ bool HelloWorld::init()
     {
         return false;
     }
-    
+    auto bg = cocos2d::LayerColor::create(Color4B(135, 206, 250, 255));
+    this->addChild(bg);
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
@@ -95,9 +96,10 @@ void HelloWorld::update(float dt)
         });
         
         icoTouch->runAction(Sequence::create(fadeOut, removeIt, nullptr));
+        auto deltaX = initialTouchPos[0] - currentTouchPos[0];
+        auto deltaY = initialTouchPos[1] - currentTouchPos[1];
         
-        
-        if (initialTouchPos[0] - currentTouchPos[0] > visibleSize.width * 0.01)
+        if (std::abs(deltaX)>std::abs(deltaY)&&deltaX>0)
         {
             CCLOG("SWIPED LEFT");
             MoveBy *move_down = MoveBy::create(2, Point(currentTouchPos[0] -initialTouchPos[0],  currentTouchPos[1]-initialTouchPos[1]));  // create move up action
@@ -105,7 +107,7 @@ void HelloWorld::update(float dt)
             isTouchDown = false;
             
         }
-        else if (initialTouchPos[0] - currentTouchPos[0] < - visibleSize.width * 0.01)
+        else if (std::abs(deltaX)>std::abs(deltaY)&&deltaX<0)
         {
             CCLOG("SWIPED RIGHT");
             MoveBy *move_down = MoveBy::create(2, Point(currentTouchPos[0] -initialTouchPos[0],  currentTouchPos[1]-initialTouchPos[1]));  // create move up action
@@ -113,7 +115,7 @@ void HelloWorld::update(float dt)
             isTouchDown = false;
             
         }
-        else if (initialTouchPos[1] - currentTouchPos[1] > visibleSize.width * 0.01)
+        else if (std::abs(deltaX)<std::abs(deltaY)&&deltaY>0)
         {
             CCLOG("SWIPED DOWN");
             MoveBy *move_down = MoveBy::create(2, Point(currentTouchPos[0] -initialTouchPos[0],  currentTouchPos[1]-initialTouchPos[1]));  // create move up action
@@ -121,7 +123,7 @@ void HelloWorld::update(float dt)
             isTouchDown = false;
             
         }
-        else if (initialTouchPos[1] - currentTouchPos[1] < - visibleSize.width * 0.01)
+        else if (std::abs(deltaX)<std::abs(deltaY)&&deltaY<0)
         {
             CCLOG("SWIPED UP");
             MoveBy *move_down = MoveBy::create(2, Point(currentTouchPos[0] -initialTouchPos[0],  currentTouchPos[1]-initialTouchPos[1]));  // create move up action
