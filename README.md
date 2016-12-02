@@ -4,7 +4,7 @@
 
 Pull from
 https://github.com/snlbase/Cocos2D-X/tree/master/Swipe%20Gestures
-with some change.
+with some change, use absolute value to decicde which direction.
 
 Vedio:
 
